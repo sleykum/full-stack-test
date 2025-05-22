@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 export default async function connectDB() {
-  const url = "mongodb://127.0.0.1/e";
+  const url = process.env.DATABASE_URL!;
  
   try{
     await mongoose.connect(url);

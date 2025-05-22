@@ -6,15 +6,20 @@ import type ShoppingItem from './model/ShoppingItem';
 import { ShoppingItemsList } from './components/ShoppingItemsList';
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: import.meta.env.VITE_API_URL,
     timeout: 10000,
 });
+
 function App() {
   const [shoppingItems, setShoppingItems] = useState<ShoppingItem[]>([]);
   
   useEffect(() => {
     axiosInstance.get('/items').then(
-      (response) => setShoppingItems(response.data)
+      (response) => {
+        if(response.data){
+          setShoppingItems(response.data);
+        }
+      }
     ).catch(error => {
       console.error(error);
     });

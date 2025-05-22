@@ -1,8 +1,10 @@
-import express, { Request, Response } from 'express';
-import ShoppingItemModel from './model/ShoppingItemModel';
+import express from 'express';
 import ShoppingItemRouter from './routes/ShoppingItemRouter';
 import connectDB from './config/db';
 import cors from 'cors';
+import dotenv from 'dotenv' 
+
+dotenv.config();
 
 const app = express();
 
@@ -12,6 +14,6 @@ app.use('/items', ShoppingItemRouter);
 
 connectDB();
 
-app.listen('3000', () => {
-  console.log(`Server running at http://localhost:3000`);
+app.listen(process.env.PORT!, () => {
+  console.log(`Server running at port ${process.env.PORT}`);
 });
