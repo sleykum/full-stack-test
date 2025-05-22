@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 export default async function connectDB() {
-  const url = "mongodb://127.0.0.1/example";
+  const url = "mongodb://127.0.0.1/e";
  
   try{
     await mongoose.connect(url);
@@ -11,7 +11,6 @@ export default async function connectDB() {
   }
   
   const dbConnection = mongoose.connection;
-  dbConnection.db?.dropDatabase();
   dbConnection.once("open", (_) => {
     console.log(`Database connected: ${url}`);
   });
