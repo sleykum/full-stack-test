@@ -29,8 +29,8 @@ ShoppingItemRouter.put('/:id', async (request: Request, response: Response) => {
         response.status(404).send();
         return;
     }
-    shoppingItem!.bought = request.body.bought;
-    await shoppingItem!.save();
+    shoppingItem.bought = request.body.bought;
+    await shoppingItem.save();
     response.send(shoppingItem);
   } catch (error) {
     response.status(500).send(error);

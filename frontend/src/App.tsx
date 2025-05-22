@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
-import './App.css'
-import { BlockStack, Button, Card, Checkbox, Divider, InlineStack, Page, Text } from '@shopify/polaris'
+import { BlockStack, Card, Page } from '@shopify/polaris'
 import axios from 'axios';
 import { AddShoppingItemForm } from './components/AddShoppingItemForm';
-import { DeleteIcon } from '@shopify/polaris-icons';
 import type ShoppingItem from './model/ShoppingItem';
+import { ShoppingItemsList } from './components/ShoppingItemsList';
 
 const axiosInstance = axios.create({
     baseURL: 'http://localhost:3000',
@@ -61,28 +60,10 @@ function App() {
         {
           shoppingItems.length !== 0 ? 
             <Card>
-              <BlockStack gap="300">
-                {shoppingItems.map(({_id, name, bought}, index) =>
-                <>
-                  <InlineStack blockAlign='center' key={_id} gap="400">
-                    <Checkbox label checked={bought} onChange={(newChecked) => setShoppingItemBought(_id, newChecked)}/>
-                    <div style={{flexGrow: 1}}>
-                      <Text as="p" alignment='start' textDecorationLine={bought? 'line-through' : undefined}>
-                      {name}
-                    </Text>
-                    </div>
-                    <InlineStack align='end'>
-                      <Button onClick={() => deleteShoppingItem(_id)} variant="plain" tone="critical" icon={DeleteIcon}/>
-                    </InlineStack>
-                  </InlineStack>
-                  {index != shoppingItems.length-1? <Divider/> : <></>}
-                </>
-                )}
-              </BlockStack>
+              <ShoppingItemsList shoppingItems={shoppingItems} onChangeBought={((id, bought) => setShoppingItemBought(id, bought))} onDelete={(id) => deleteShoppingItem(id)}/>
             </Card>
           : <></>
         }
-        
       </BlockStack>
     </Page>
       
